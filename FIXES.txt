@@ -1,0 +1,29 @@
+NOVARA FIXED BUILD
+
+Main fixes:
+1. All customer modal close/overlay buttons now work, including Orders.
+2. Orders modal has its own vertical scrollbar.
+3. Cart drawer has its own vertical scrollbar.
+4. Checkout modal scrolls on small screens.
+5. Background page scrolling is disabled while a modal/drawer is open.
+6. UPI validation added on frontend and backend.
+7. Card validation added: 16 digits, Luhn check, future MM/YY expiry, 3-digit CVV.
+8. Card number/expiry/CVV input formatting added.
+9. Place Order button is disabled while processing to prevent duplicate orders.
+10. Server combines duplicate product IDs before checking stock.
+11. Order status is explicitly stored as Pending.
+12. Fresh MySQL schema is included as novara_store.sql.
+13. README updated with run instructions and payment limitations.
+
+IMPORTANT:
+- COD creates a real local order in the MySQL database.
+- UPI and card are DEMO payment flows. They do not charge real money.
+- For real payments, integrate Razorpay/Stripe and verify payments on the server.
+
+Run:
+1. Start MySQL in XAMPP/MySQL Workbench service.
+2. Make sure novara_store exists. If starting fresh, run novara_store.sql in MySQL Workbench.
+3. Open PowerShell in this project folder.
+4. npm install
+5. npm start
+6. Open http://localhost:3000

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVARA | Shop your way</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">NOVARA<span>.</span></a>
+    <div class="search"><input id="searchInput" placeholder="Search for products, brands and more"><button
+        id="searchBtn">Search</button></div>
+    <div class="header-actions"><button id="accountBtn">Login / Sign up</button><button id="ordersBtn" class="hidden">Orders</button><button id="logoutBtn" class="hidden">Logout</button><a class="admin-link" href="/admin.html">Admin</a><button id="cartBtn">Bag <b
+          id="cartCount">0</b></button></div>
+  </header>
+  <nav class="categories"><button class="filter active" data-category="All">All products</button><button class="filter"
+      data-category="Fashion">Fashion</button><button class="filter"
+      data-category="Electronics">Electronics</button><button class="filter"
+      data-category="Accessories">Accessories</button></nav>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">THE NOVARA EDIT</p>
+        <h1>Find your<br><em>everyday</em> favorite.</h1>
+        <p>Fresh finds, thoughtful picks, and little upgrades for every day.</p><a href="#shop"
+          class="hero-link">Explore collection ↓</a>
+      </div>
+      <div class="hero-art">
+        <div class="orb"></div>
+        <div class="hero-note">STYLE YOUR<br>OWN STORY</div>
+      </div>
+    </section>
+    <section id="shop" class="shop-head">
+      <div>
+        <p class="eyebrow">CURATED FOR YOU</p>
+        <h2>Discover the collection</h2>
+      </div><span id="resultCount">Loading products…</span>
+    </section>
+    <section id="products" class="products"></section>
+  </main>
+  <footer><a class="brand" href="#">NOVARA<span>.</span></a>
+    <p>Everything you love. One destination.</p><small></small>
+  </footer>
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="cartDrawer">
+    <div class="drawer-head">
+      <h2>Your bag</h2><button class="close">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-bottom">
+      <div class="total"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div><button class="primary"
+        id="checkoutBtn">Continue to checkout</button>
+    </div>
+  </aside>
+  <section class="modal" id="accountModal"><button class="modal-close close">×</button>
+    <p class="eyebrow">WELCOME TO NOVARA</p>
+    <h2 id="authTitle">Sign in</h2>
+    <form id="authForm" novalidate>
+      <div id="nameField" class="hidden"><label>Name</label><input id="authName"></div><label>Email</label><input
+        id="authEmail" type="email" required><label>Password</label><input id="authPassword" type="password"
+        minlength="6" required><button class="primary" type="submit" id="authSubmit">Sign in</button>
+    </form>
+    <p class="switch-auth"><span id="switchText">New here?</span> <button id="switchAuth">Create an account</button></p>
+    <p id="authMessage" class="message"></p>
+  </section>
+  <section class="modal" id="checkoutModal"><button class="modal-close close">×</button>
+    <p class="eyebrow">ALMOST YOURS</p>
+    <h2>Checkout</h2>
+    <form id="checkoutForm"><label>Full name</label><input id="customerName" autocomplete="name" required><label>Email</label><input
+        id="customerEmail" type="email" required>
+      <label>Payment method</label>
+      <select id="paymentMethod">
+        <option value="COD">Cash on Delivery</option>
+        <option value="UPI">UPI</option>
+        <option value="CARD">Debit / Credit Card</option>
+      </select>
+      <div id="upiFields" class="payment-box hidden">
+        <label>UPI ID</label><input id="upiId" autocomplete="off" placeholder="example@upi">
+      </div>
+      <div id="cardFields" class="payment-box hidden">
+        <label>Card number</label><input id="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19" placeholder="16 digit card number">
+        <div class="card-grid"><div><label>Expiry</label><input id="cardExpiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5"></div><div><label>CVV</label><input id="cardCvv" type="password" inputmode="numeric" autocomplete="cc-csc" maxlength="3"></div></div>
+        <small><b>Demo payment:</b> UPI and card payments are simulated for this student project. No real money is charged and card details are never stored.</small>
+      </div>
+      <button class="primary" type="submit">Place order</button>
+    </form>
+    <p id="checkoutMessage" class="message"></p>
+  </section>
+  <section class="modal" id="ordersModal"><button class="modal-close close">×</button>
+    <p class="eyebrow">YOUR NOVARA ACCOUNT</p><h2>Previous orders</h2><div id="ordersList"></div>
+  </section>
+  <script src="app.js"></script>
+</body>
+
+</html>

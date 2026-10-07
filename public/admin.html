@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>NOVARA Admin</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .wrap {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 5%;
+        }
+
+        .panel {
+            background: white;
+            padding: 24px;
+            border-radius: 10px;
+            margin: 18px 0;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .fields input,
+        .fields select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font: inherit;
+        }
+
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tbl td,
+        .tbl th {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            .fields {
+                grid-template-columns: 1fr;
+            }
+
+            .tbl {
+                display: block;
+                overflow: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
+
+    <header class="topbar">
+
+        <a class="brand" href="/">
+            NOVARA<span>.</span>
+        </a>
+
+        <b>
+            Admin dashboard
+        </b>
+
+        <a href="/">
+            Back to store
+        </a>
+
+    </header>
+
+
+    <!-- ============================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================= -->
+
+    <main class="wrap">
+
+
+        <!-- ============================= -->
+        <!-- ADMIN LOGIN -->
+        <!-- ============================= -->
+
+        <section id="login" class="panel">
+
+            <p class="eyebrow">
+                STORE MANAGEMENT
+            </p>
+
+            <h2>
+                Admin sign in
+            </h2>
+
+            <form id="loginForm">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    required
+                >
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    required
+                >
+
+                <button
+                    class="primary"
+                    style="margin-top:15px"
+                >
+                    Sign in
+                </button>
+
+            </form>
+
+            <p id="loginMsg"></p>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- ADMIN DASHBOARD -->
+        <!-- ============================= -->
+
+        <div id="dash" class="hidden">
+
+
+            <!-- ============================= -->
+            <!-- ADD PRODUCT -->
+            <!-- ============================= -->
+
+            <section class="panel">
+
+                <h2>
+                    Add product
+                </h2>
+
+                <form id="productForm">
+
+                    <div class="fields">
+
+                        <input
+                            id="name"
+                            placeholder="Product name"
+                            required
+                        >
+
+
+                        <select id="category">
+
+                            <option>
+                                Fashion
+                            </option>
+
+                            <option>
+                                Electronics
+                            </option>
+
+                            <option>
+                                Accessories
+                            </option>
+
+                            <option>
+                                Home
+                            </option>
+
+                            <option>
+                                Beauty
+                            </option>
+
+                            <option>
+                                Sports
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            id="price"
+                            type="number"
+                            min="1"
+                            placeholder="Price ₹"
+                            required
+                        >
+
+
+                        <input
+                            id="stock"
+                            type="number"
+                            min="0"
+                            value="10"
+                            placeholder="Stock"
+                        >
+
+
+                        <input
+                            id="image"
+                            placeholder="Image URL"
+                        >
+
+
+                        <input
+                            id="description"
+                            placeholder="Description"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="primary"
+                        style="margin-top:15px"
+                    >
+                        Add product
+                    </button>
+
+                </form>
+
+                <p id="msg"></p>
+
+            </section>
+
+
+            <!-- ============================= -->
+            <!-- PRODUCTS -->
+            <!-- ============================= -->
+
+            <section class="panel">
+
+                <h2>
+                    Products
+                </h2>
+
+                <div id="products">
+                    Loading…
+                </div>
+
+            </section>
+
+
+            <!-- ============================= -->
+            <!-- ORDERS -->
+            <!-- ============================= -->
+
+            <section class="panel">
+
+                <h2>
+                    Orders
+                </h2>
+
+                <div id="orders">
+                    Loading…
+                </div>
+
+            </section>
+
+
+            <!-- ============================= -->
+            <!-- EDIT PRODUCT -->
+            <!-- ============================= -->
+
+            <section id="editPanel" class="panel hidden">
+                <h2>Edit product</h2>
+                <form id="editForm">
+                    <input type="hidden" id="editId">
+                    <div class="fields">
+                        <input id="editName" placeholder="Product name" required>
+                        <select id="editCategory">
+                            <option>Fashion</option><option>Electronics</option><option>Accessories</option><option>Home</option><option>Beauty</option><option>Sports</option>
+                        </select>
+                        <input id="editPrice" type="number" min="1" placeholder="Price ₹" required>
+                        <input id="editStock" type="number" min="0" placeholder="Stock" required>
+                        <input id="editImage" placeholder="Image URL">
+                        <input id="editDescription" placeholder="Description">
+                    </div>
+                    <button class="primary" style="margin-top:15px">Save changes</button>
+                    <button type="button" id="cancelEdit" style="margin-top:15px">Cancel</button>
+                </form>
+            </section>
+
+
+            <!-- ============================= -->
+            <!-- LOGOUT -->
+            <!-- ============================= -->
+
+            <button
+                id="logout"
+                class="add-btn"
+            >
+                Admin logout
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================= -->
+
+    <script>
+
+        // Admin authentication token
+        let token = '';
+
+
+        // Short function for getting HTML elements
+        const $ = id =>
+            document.getElementById(id);
+
+        function escapeHtml(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            })[char]);
+        }
+
+
+        // ========================================
+        // API FUNCTION
+        // ========================================
+
+        async function api(url, opt = {}) {
+
+            return fetch(url, {
+
+                ...opt,
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json",
+
+                    "x-admin-token":
+                        token,
+
+                    ...opt.headers
+
+                }
+
+            });
+
+        }
+
+
+        // ========================================
+        // ADMIN LOGIN
+        // ========================================
+
+        $("loginForm").onsubmit = async e => {
+
+            e.preventDefault();
+
+
+            const response = await fetch(
+                "/api/admin/login",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        email:
+                            $("email").value,
+
+                        password:
+                            $("password").value
+
+                    })
+
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            $("loginMsg").textContent =
+                data.message;
+
+
+            if (response.ok) {
+
+                token =
+                    data.token;
+
+
+                $("login")
+                    .classList
+                    .add("hidden");
+
+
+                $("dash")
+                    .classList
+                    .remove("hidden");
+
+
+                load();
+
+            }
+
+        };
+
+
+        // ========================================
+        // LOAD PRODUCTS AND ORDERS
+        // ========================================
+
+        async function load() {
+
+            const [
+                productsResponse,
+                ordersResponse
+            ] = await Promise.all([
+
+                api("/api/products"),
+
+                api("/api/admin/orders")
+
+            ]);
+
+
+            const products =
+                await productsResponse.json();
+
+            loadedProducts = products;
+
+            const orders =
+                await ordersResponse.json();
+
+
+            // ====================================
+            // DISPLAY PRODUCTS
+            // ====================================
+
+            $("products").innerHTML =
+
+                '<table class="tbl">' +
+
+                '<tr>' +
+
+                '<th>Name</th>' +
+                '<th>Category</th>' +
+                '<th>Price</th>' +
+                '<th>Stock</th>' +
+                '<th></th>' +
+
+                '</tr>' +
+
+                products.map(product => `
+                    <tr>
+                        <td>${escapeHtml(product.name)}</td>
+                        <td>${escapeHtml(product.category)}</td>
+                        <td>₹${product.price}</td>
+                        <td>${product.stock}</td>
+                        <td>
+                            <button onclick="editProduct(${product.id})">Edit</button>
+                            <button onclick="del(${product.id})">Delete</button>
+                        </td>
+                    </tr>
+                `).join("") +
+
+                '</table>';
+
+
+            // ====================================
+            // DISPLAY ORDERS
+            // ====================================
+
+            $("orders").innerHTML =
+
+                orders.length
+
+                    ?
+
+                    '<table class="tbl">' +
+
+                    '<tr>' +
+
+                    '<th>Order</th>' +
+                    '<th>Customer</th>' +
+                    '<th>Email</th>' +
+                    '<th>Total</th>' +
+                    '<th>Status</th>' +
+
+                    '</tr>' +
+
+                    orders.map(order => `
+
+                        <tr>
+
+                            <td>
+                                #${order.id}
+                            </td>
+
+                            <td>
+                                ${order.customer_name}
+                            </td>
+
+                            <td>
+                                ${order.email}
+                            </td>
+
+                            <td>
+                                ₹${order.total}
+                            </td>
+
+                            <td>
+                                ${order.status}
+                            </td>
+
+                        </tr>
+
+                    `).join("") +
+
+                    '</table>'
+
+                    :
+
+                    'No orders yet';
+
+        }
+
+
+        // ========================================
+        // ADD PRODUCT
+        // ========================================
+
+        $("productForm").onsubmit =
+            async e => {
+
+                e.preventDefault();
+
+
+                const response =
+                    await api(
+                        "/api/admin/products",
+                        {
+
+                            method: "POST",
+
+                            body: JSON.stringify({
+
+                                name:
+                                    $("name").value,
+
+                                category:
+                                    $("category").value,
+
+                                price:
+                                    +$("price").value,
+
+                                stock:
+                                    +$("stock").value,
+
+                                image_url:
+                                    $("image").value,
+
+                                description:
+                                    $("description").value
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                $("msg").textContent =
+                    data.message;
+
+
+                if (response.ok) {
+
+                    e.target.reset();
+
+                    load();
+
+                }
+
+            };
+
+
+        // ========================================
+        // EDIT PRODUCT
+        // ========================================
+
+        let loadedProducts = [];
+
+        async function editProduct(id) {
+            const product = loadedProducts.find(p => Number(p.id) === Number(id));
+            if (!product) return;
+
+            $("editId").value = product.id;
+            $("editName").value = product.name;
+            $("editCategory").value = product.category;
+            $("editPrice").value = product.price;
+            $("editStock").value = product.stock;
+            $("editImage").value = product.image_url || "";
+            $("editDescription").value = product.description || "";
+            $("editPanel").classList.remove("hidden");
+            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+        }
+
+        $("editForm").onsubmit = async e => {
+            e.preventDefault();
+            const response = await api("/api/admin/products/" + $("editId").value, {
+                method: "PUT",
+                body: JSON.stringify({
+                    name: $("editName").value,
+                    category: $("editCategory").value,
+                    price: +$("editPrice").value,
+                    stock: +$("editStock").value,
+                    image_url: $("editImage").value,
+                    description: $("editDescription").value
+                })
+            });
+            const data = await response.json();
+            $("msg").textContent = data.message;
+            if (response.ok) {
+                $("editPanel").classList.add("hidden");
+                load();
+            }
+        };
+
+        $("cancelEdit").onclick = () => $("editPanel").classList.add("hidden");
+
+
+        // ========================================
+        // DELETE PRODUCT
+        // ========================================
+
+        async function del(id) {
+
+            if (
+                confirm(
+                    "Delete this product?"
+                )
+            ) {
+
+                const response =
+                    await api(
+                        "/api/admin/products/" + id,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                $("msg").textContent =
+                    data.message;
+
+
+                load();
+
+            }
+
+        }
+
+
+        // ========================================
+        // ADMIN LOGOUT
+        // ========================================
+
+        $("logout").onclick = () => {
+
+            token = '';
+
+
+            $("dash")
+                .classList
+                .add("hidden");
+
+
+            $("login")
+                .classList
+                .remove("hidden");
+
+
+            $("loginForm").reset();
+
+        };
+
+    </script>
+
+</body>
+
+</html>
